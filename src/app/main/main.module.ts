@@ -3,12 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
+import { SidebarMenuComponent } from '../shared/sidebar-menu/sidebar-menu.component';
+import { TopMenuComponent } from '../shared/top-menu/top-menu.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MainRoutingModule
   ],
-  declarations: [MainComponent]
+  declarations: [MainComponent,SidebarMenuComponent,TopMenuComponent],
+  exports: [
+    SidebarMenuComponent,TopMenuComponent
+  ]
 })
 export class MainModule { }
