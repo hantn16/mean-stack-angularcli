@@ -69,7 +69,7 @@ var setContentHeight = function () {
 	$RIGHT_COL.css('min-height', contentHeight);
 };
 
-  $SIDEBAR_MENU.find('a').on('click', function(ev) {
+  $SIDEBAR_MENU.find('a').off('click').on('click', function(ev) {
 	  console.log('clicked - sidebar_menu');
         var $li = $(this).parent();
 
@@ -100,7 +100,7 @@ var setContentHeight = function () {
     });
 
 // toggle small or large menu 
-$MENU_TOGGLE.on('click', function() {
+$MENU_TOGGLE.off('click').on('click', function() {
 		console.log('clicked - menu toggle');
 		
 		if ($BODY.hasClass('nav-md')) {
@@ -152,7 +152,7 @@ $MENU_TOGGLE.on('click', function() {
 
 // Panel toolbox
 $(document).ready(function() {
-    $('.collapse-link').on('click', function() {
+    $('.collapse-link').off('click').on('click', function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
@@ -294,7 +294,7 @@ if (typeof NProgress != 'undefined') {
         NProgress.start();
     });
 
-    $(window).load(function () {
+    $(window).on('load',function () {
         NProgress.done();
     });
 }
@@ -962,7 +962,7 @@ if (typeof NProgress != 'undefined') {
 			$/*.listen*/('parsley:field:validate', function() {
 			  validateFront();
 			});
-			$('#demo-form .btn').on('click', function() {
+			$('#demo-form .btn').off('click').on('click', function() {
 			  $('#demo-form').parsley().validate();
 			  validateFront();
 			});
@@ -979,7 +979,7 @@ if (typeof NProgress != 'undefined') {
 			$/*.listen*/('parsley:field:validate', function() {
 			  validateFront();
 			});
-			$('#demo-form2 .btn').on('click', function() {
+			$('#demo-form2 .btn').off('click').on('click', function() {
 			  $('#demo-form2').parsley().validate();
 			  validateFront();
 			});
@@ -1230,7 +1230,7 @@ if (typeof NProgress != 'undefined') {
 
 
 			// Methods
-			$('.docs-buttons').on('click', '[data-method]', function () {
+			$('.docs-buttons').off('click').on('click', '[data-method]', function () {
 			  var $this = $(this);
 			  var data = $this.data();
 			  var $target;
@@ -1913,7 +1913,7 @@ if (typeof NProgress != 'undefined') {
 
 			var tabid = idname = '';
 
-			$(document).on('click', '.notification_close', function(e) {
+			$(document).off('click').on('click', '.notification_close', function(e) {
 			  idname = $(this).parent().parent().attr("id");
 			  tabid = idname.substr(-2);
 			  $('#ntf' + tabid).remove();
@@ -1945,7 +1945,7 @@ if (typeof NProgress != 'undefined') {
 				  }
 				});
 				var chart = window.chart = $('.chart').data('easyPieChart');
-				$('.js_update').on('click', function() {
+				$('.js_update').off('click').on('click', function() {
 				  chart.update(Math.random() * 200 - 100);
 				});
 
@@ -2668,7 +2668,7 @@ if (typeof NProgress != 'undefined') {
 				  hideHover: 'auto',
 				  labels: ['Y', 'Z', 'A'],
 				  resize: true
-				}).on('click', function (i, row) {
+				}).off('click').on('click', function (i, row) {
 					console.log(i, row);
 				});
 
@@ -2739,7 +2739,7 @@ if (typeof NProgress != 'undefined') {
 				  resize: true
 				});
 
-				$MENU_TOGGLE.on('click', function() {
+				$MENU_TOGGLE.off('click').on('click', function() {
 				  $(window).resize();
 				});
 			
