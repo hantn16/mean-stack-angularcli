@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const SellerSchema = new mongoose.Schema({
-    name: {
+    commonName: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    },
+    companyName: {
         type: String,
         required: true,
         minlength: 1,

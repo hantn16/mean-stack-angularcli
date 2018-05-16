@@ -1,0 +1,21 @@
+<h3 *ngIf="isLoading"><i>Loading sellers ... </i></h3>
+<h3 *ngIf="!isLoading">Select a seller:</h3>
+
+<nav>
+  <button (click)="getSellers()" class="btn btn-primary">Refresh</button>
+  <a *ngFor="let seller of sellers | async" (click)="select(seller)">{{seller.name}}</a>
+</nav>
+
+<div *ngIf="selectedSeller">
+  <hr>
+  <h2>Seller Detail</h2>
+  <h3>Editing: {{selectedSeller.name}}</h3>
+  <app-seller-detail [seller]="selectedSeller"></app-seller-detail>
+</div>
+
+
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

@@ -10,7 +10,7 @@ const {authenticate} = require('../middleware/authenticate');
 //POST /sellers
 
 router.post('/',authenticate, (req, res) => {
-    const body = _.pick(req.body, ['name', 'taxCode', 'address']);
+    const body = _.pick(req.body, ['commonName','companyName', 'taxCode', 'address']);
     body._createdBy = req.user._id;
     body._createdAt = new Date();
     console.log(body._creator);
@@ -71,7 +71,7 @@ router.delete('/:id',authenticate, (req, res) => {
 //PATCH /sellers/:id
 router.patch(`/:id`,authenticate, (req, res) => {
     const id = req.params.id;
-    const body = _.pick(req.body, ['name', 'taxCode', 'address']);
+    const body = _.pick(req.body, ['commonName','companyName', 'taxCode', 'address']);
     body._modifiedBy = req.user._id;
     body._modifiedAt = new Date();
     if (!ObjectID.isValid(id)) {
