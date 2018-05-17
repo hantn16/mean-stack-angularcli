@@ -22,9 +22,12 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     const body = _.pick(req.body, ['email', 'password']);
     User.findByCredentials(body.email, body.password).then((user) => {
-        user.generateAuthToken().then((token) => {
-            res.header('x-auth', token).send(user);
-        });
+        // user.generateAuthToken().then((token) => {
+        const token = user.tokens[0].token;
+        console.log(token);
+        console.log(JSON.stringify(user));
+        res.header('x-auth', token).send(user);
+        // });
     }).catch((e) => {
         res.status(400).send(e);
     });

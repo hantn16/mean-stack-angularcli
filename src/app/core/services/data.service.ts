@@ -21,7 +21,19 @@ export class DataService {
     this.headers.append('Content-Type', 'application/json');
   }
   get(uri: string) {
-    return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers }).pipe(map(this.extractData));
+    return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
+    .pipe(map(this.extractData));
   }
-  pos
+  post(uri: string,data?: any){
+    return this._http.post(SystemConstants.BASE_API + uri,data, { headers: this.headers })
+    .pipe(map(this.extractData));
+  }
+  delete(uri: string,key: string,id:string){
+    return this._http.delete(SystemConstants.BASE_API + uri + "/?" + key + "=" + id, { headers: this.headers })
+    .pipe(map(this.extractData));
+  }
+  put(uri: string, data?: any) {
+    return this._http.put(SystemConstants.BASE_API + uri, data, { headers: this.headers })
+    .pipe(map(this.extractData));
+  }
 }
