@@ -6,16 +6,18 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && login()">
               <h1>Login Form</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+              <div [ngClass]="{ 'has-error' : f.submitted && !email.valid }">
+                <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+                <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+              </div>
+              <div [ngClass]="{ 'has-error' : f.submitted && !password.valid }">
+                <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Log in</a>
+                <button [disabled]="loading" class="btn btn-default" href="index.html">Đăng nhập</button>
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
   

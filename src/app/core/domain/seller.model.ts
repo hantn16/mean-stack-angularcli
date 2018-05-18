@@ -1,4 +1,4 @@
-export class Seller {
+export class SellerModel {
     commonName: string = '';
     companyName: string = '';
     taxCode: string = '';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Seller } from '../../core/domain/seller.model';
+import { SellerModel } from '../../core/domain/seller.model';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { DataService } from '../../core/services/data.service';
