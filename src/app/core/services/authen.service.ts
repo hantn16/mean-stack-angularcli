@@ -11,27 +11,28 @@ import { UserModel } from '../domain/user.model';
 export class AuthenService {
   public token: string;
   constructor(private _http: Http) { }
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<UserModel> {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     let options = new RequestOptions({ headers: headers })
-    return this._http.post(SystemConstants.BASE_API + 'api/users/login', JSON.stringify({ email: email, password: password }))
+    return this._http.post(SystemConstants.BASE_API + 'api/users/login',JSON.stringify({ email: email, password: password }),options)
       .pipe(map((response: Response) => {
         // login successful if there's a jwt token in the response
         console.log(JSON.stringify(response));
-        let token = response.json().tokens[0].token;
+        let token = response.json().token;
+        let user = response.json().user;
         if (token) {
           // set token property
           this.token = token;
 
           // store username and jwt token in local storage to keep user logged in between page refreshes
           localStorage.removeItem(SystemConstants.CURRENT_USER);
-          localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify({ email: email, token: token }));
+          localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify({ user, token }));
           // return true to indicate successful login
-          return true;
+          return response.json();
         } else {
           // return false to indicate failed login
-          return false;
+          return null;
         }
       }));
   }
@@ -56,7 +57,7 @@ export class AuthenService {
       user = new UserModel();
       user.email = userData.email;
       user.name = userData.name;
-      user.surname = userData.surname;
+      user.fullName = userData.fullName;
       user.imgLink = userData.imgLink;
     }
     else {

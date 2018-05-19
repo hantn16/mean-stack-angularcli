@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
         const token = user.tokens[0].token;
         console.log(token);
         console.log(JSON.stringify(user));
-        res.header('x-auth', token).send(user);
+        res.header('x-auth', token).send({user,token});
         // });
     }).catch((e) => {
         res.status(400).send(e);
