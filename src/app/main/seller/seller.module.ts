@@ -11,6 +11,7 @@ import { SellerDetailComponent } from './seller-detail/seller-detail.component';
     CommonModule,
     SellerRoutingModule
   ],
-  declarations: [SellerComponent, SellerListComponent, SellerDetailComponent]
+  declarations: [SellerComponent, SellerListComponent, SellerDetailComponent],
+  exports: [SellerComponent, SellerListComponent, SellerDetailComponent]
 })
 export class SellerModule { }

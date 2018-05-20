@@ -12,15 +12,16 @@ export class AuthenService {
   public token: string;
   constructor(private _http: Http) { }
   login(email: string, password: string): Observable<UserModel> {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    let options = new RequestOptions({ headers: headers })
-    return this._http.post(SystemConstants.BASE_API + 'api/users/login',JSON.stringify({ email: email, password: password }),options)
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const options = new RequestOptions({ headers: headers });
+    return this._http.post(SystemConstants.BASE_API + 'api/users/login',
+    JSON.stringify({ email: email, password: password }), options)
       .pipe(map((response: Response) => {
         // login successful if there's a jwt token in the response
         console.log(JSON.stringify(response));
-        let token = response.json().token;
-        let user = response.json().user;
+        const token = response.json().token;
+        const user = response.json().user;
         if (token) {
           // set token property
           this.token = token;
@@ -42,27 +43,26 @@ export class AuthenService {
     localStorage.removeItem(SystemConstants.CURRENT_USER);
   }
   isUserAuthenticated(): boolean {
-    let user = localStorage.getItem(SystemConstants.CURRENT_USER);
+    const user = localStorage.getItem(SystemConstants.CURRENT_USER);
     if (user != null) {
       return true;
-    }
-    else
+    } else {
       return false;
+    }
   }
 
   getLoggedInUser(): UserModel {
     let user: UserModel;
     if (this.isUserAuthenticated()) {
-      var userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+      const userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
       user = new UserModel();
-      user.email = userData.email;
-      user.name = userData.name;
-      user.fullName = userData.fullName;
-      user.imgLink = userData.imgLink;
-    }
-    else {
+      user.email = userData.user.email;
+      user.name = userData.user.name;
+      user.fullName = userData.user.fullName;
+      user.imgLink = userData.user.imgLink;
+    } else {
       user = null;
-    }    
+    }
     return user;
   }
 }
