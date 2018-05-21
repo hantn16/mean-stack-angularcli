@@ -17,20 +17,21 @@ export class LoginComponent implements OnChanges {
   @Input() userModel: UserModel;
   loginForm: FormGroup;
 
-  ngOnChanges(): void {
-    this.loginForm.reset();
-  }
   loading = false;
   model: any = {};
   returnUrl: string;
+  ngOnChanges(): void {
+    this.loginForm.reset();
+  }
+
   constructor(private _authenService: AuthenService, private _notificationService: NotificationService,
     private router: Router, private fb: FormBuilder) {
     this.createForm();
   }
   createForm(): any {
     this.loginForm = this.fb.group({
-      email: ['',Validators.required],
-      password: ['',Validators.required]
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
   login() {

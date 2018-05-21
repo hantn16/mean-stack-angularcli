@@ -31,7 +31,7 @@ export class NotificationService {
 
       // notifier defaults
       notifier: {
-        // auto-dismiss wait time (in seconds)  
+        // auto-dismiss wait time (in seconds)
         delay: 5,
         // default position
         position: 'top-right',
@@ -39,7 +39,7 @@ export class NotificationService {
         closeButton: false
       },
 
-      // language resources 
+      // language resources
       glossary: {
         // dialogs default title
         title: 'Xác nhận',
@@ -55,7 +55,7 @@ export class NotificationService {
         input: 'ajs-input',
         // class name attached to ok button
         ok: 'ajs-ok',
-        // class name attached to cancel button 
+        // class name attached to cancel button
         cancel: 'ajs-cancel'
       }
     };

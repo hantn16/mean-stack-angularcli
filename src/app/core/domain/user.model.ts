@@ -4,5 +4,5 @@ export class UserModel {
     fullName: string;
     imgLink: string;
     tokens: any[];
-    constructor(){}
+    constructor() { }
 }

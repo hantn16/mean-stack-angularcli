@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
 import { UtilityService } from './utility.service';
 import { SystemConstants } from '../common/system.constants';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AuthenService } from './authen.service';
 

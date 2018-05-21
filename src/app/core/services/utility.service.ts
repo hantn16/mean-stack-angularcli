@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { AuthenService } from "./authen.service";
+import { AuthenService } from './authen.service';
 import { UrlConstants } from '../common/url.constants';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UtilityService {
     this._router = router;
   }
   convertDateTime(date: Date) {
-    var _formattedDate = new Date(date.toString());
+    const _formattedDate = new Date(date.toString());
     return _formattedDate.toDateString();
   }
 
@@ -24,10 +24,10 @@ export class UtilityService {
     this._router.navigate([UrlConstants.LOGIN]);
   }
   Unflatten = (arr: any[]): any[] => {
-    let map = {};
-    let roots: any[] = [];
-    for (var i = 0; i < arr.length; i += 1) {
-      let node = arr[i];
+    const map = {};
+    const roots: any[] = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      const node = arr[i];
       node.children = [];
       map[node.ID] = i; // use map to look-up the parents
       if (node.ParentId !== null) {
@@ -40,10 +40,10 @@ export class UtilityService {
   }
 
   Unflatten2 = (arr: any[]): any[] => {
-    let map = {};
-    let roots: any[] = [];
-    for (var i = 0; i < arr.length; i += 1) {
-      let node = arr[i];
+    const map = {};
+    const roots: any[] = [];
+    for (let i = 0; i < arr.length; i += 1) {
+      const node = arr[i];
       node.children = [];
       map[node.ID] = i; // use map to look-up the parents
       if (node.ParentID !== null) {
@@ -55,12 +55,13 @@ export class UtilityService {
     return roots;
   }
   MakeSeoTitle(input: string) {
-    if (input == undefined || input == '')
+    if (input === undefined || input === '') {
       return '';
-    //Đổi chữ hoa thành chữ thường
-    var slug = input.toLowerCase();
+    }
+     // Đổi chữ hoa thành chữ thường
+    let slug = input.toLowerCase();
 
-    //Đổi ký tự có dấu thành không dấu
+    // Đổi ký tự có dấu thành không dấu
     slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
     slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
     slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
@@ -68,17 +69,17 @@ export class UtilityService {
     slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
     slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
     slug = slug.replace(/đ/gi, 'd');
-    //Xóa các ký tự đặt biệt
+    // Xóa các ký tự đặt biệt
     slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
-    //Đổi khoảng trắng thành ký tự gạch ngang
-    slug = slug.replace(/ /gi, "-");
-    //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
-    //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+    // Đổi khoảng trắng thành ký tự gạch ngang
+    slug = slug.replace(/ /gi, '-');
+    // Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+    // Phòng trường hợp người nhập vào quá nhiều ký tự trắng
     slug = slug.replace(/\-\-\-\-\-/gi, '-');
     slug = slug.replace(/\-\-\-\-/gi, '-');
     slug = slug.replace(/\-\-\-/gi, '-');
     slug = slug.replace(/\-\-/gi, '-');
-    //Xóa các ký tự gạch ngang ở đầu và cuối
+    // Xóa các ký tự gạch ngang ở đầu và cuối
     slug = '@' + slug + '@';
     slug = slug.replace(/\@\-|\-\@|\@/gi, '');
 

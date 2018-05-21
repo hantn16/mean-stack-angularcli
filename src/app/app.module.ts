@@ -17,7 +17,6 @@ import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.compone
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     AppRoutingModule
   ],
   providers: [],
