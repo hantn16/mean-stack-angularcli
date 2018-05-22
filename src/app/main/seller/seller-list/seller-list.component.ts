@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SellerModel } from '../../../core/domain/seller.model';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SellerService } from '../seller.service';
 import { finalize } from 'rxjs/operators';
+import { DataService } from '../../../core/services/data.service';
 
 @Component({
   selector: 'app-seller-list',
@@ -11,20 +13,19 @@ import { finalize } from 'rxjs/operators';
 })
 export class SellerListComponent implements OnInit {
 
-  sellers: Observable<SellerModel[]>;
+  sellers;
   isLoading = false;
   selectedSeller: SellerModel;
 
-  constructor(private sellerService: SellerService) { }
+  constructor(private _sellerService: SellerService) { }
 
-  ngOnInit() { this.getSelleres(); }
+  ngOnInit() { this.getSellers(); }
 
-  getSelleres() {
+  getSellers() {
     this.isLoading = true;
-    this.sellers = this.sellerService.getSelleres()
-      // TODO: error handling
-      .pipe(finalize(() => this.isLoading = false));
+    this.sellers = this._sellerService.getSellers();
     this.selectedSeller = undefined;
+    this.isLoading = false;
   }
 
   select(seller: SellerModel) { this.selectedSeller = seller; }

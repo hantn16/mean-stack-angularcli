@@ -10,9 +10,27 @@ import { SystemConstants } from '../../core/common/system.constants';
 })
 export class SellerService {
 
-
   constructor(private _dataService: DataService) { }
-  getSelleres(): any {
-    return this._dataService.get('/sellers/getall');
+  getSellers() {
+    let sellers: SellerModel[] = [];
+    this._dataService.get('api/sellers/getall').subscribe((result) => {
+      sellers = result;
+    });
+    return sellers;
+  }
+  getSeller(id: String) {
+    let seller: SellerModel = new SellerModel();
+    this._dataService.get('api/sellers/' + id).subscribe((result) => {
+      seller = result;
+    });
+    return seller;
+  }
+  updateSeller(seller: SellerModel): SellerModel {
+    const id = seller.id;
+    let newSeller;
+    this._dataService.put('api/sellers/' + id).subscribe((result) => {
+      newSeller = result;
+    });
+    return newSeller; // simulate latency with delay
   }
 }
