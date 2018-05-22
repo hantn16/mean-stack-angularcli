@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
 import { UtilityService } from './utility.service';
@@ -25,8 +25,12 @@ export class DataService {
     this.headers.append('x-auth', userData.token);
   }
   get(uri: string): Observable<any> {
-    this.addAuthenHeader();
-    return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
+    this.headers.delete('x-auth');
+    const userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    this.headers.append('x-auth', userData.token);
+    const fullURI = SystemConstants.BASE_API + uri;
+    const option = new RequestOptions({ headers: this.headers });
+    return this._http.get(SystemConstants.BASE_API + uri, option)
       .pipe(map(res => res.json()));
   }
   post(uri: string, data?: any): Observable<any> {

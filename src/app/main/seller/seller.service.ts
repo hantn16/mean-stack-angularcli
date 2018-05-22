@@ -15,6 +15,8 @@ export class SellerService {
     let sellers: SellerModel[] = [];
     this._dataService.get('api/sellers/getall').subscribe((result) => {
       sellers = result;
+    }, (error) => {
+      console.log(JSON.stringify(error));
     });
     return sellers;
   }
