@@ -21,8 +21,8 @@ export class SellerService {
     });
     return seller;
   }
-  updateSeller(seller: SellerModel): SellerModel {
-    const id = seller.id;
+  updateSeller(seller) {
+    const id = seller._id;
     let newSeller;
     this._dataService.put('sellers/' + id).subscribe((result) => {
       newSeller = result;

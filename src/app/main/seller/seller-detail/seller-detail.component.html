@@ -1,14 +1,9 @@
-<form formGroup="sellerForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="sellerForm" (ngSubmit)="onSubmit()">
   <div style="margin-bottom: 1em">
     <button type="submit" [disabled]="sellerForm.pristine" class="btn btn-success">Save</button> &nbsp;
     <button type="button" (click)="revert()" [disabled]="sellerForm.pristine" class="btn btn-danger">Revert</button>
   </div>
   <!-- Seller Detail Controls -->
-  <div class="form-group" disabled>
-    <label class="center-block">ID:
-      <input class="form-control" formControlName="id">
-    </label>
-  </div>
   <div class="form-group">
     <label class="center-block">Common Name:
       <input class="form-control" formControlName="commonName">

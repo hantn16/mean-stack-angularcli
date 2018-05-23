@@ -32,7 +32,7 @@ export class DataService {
   get(uri: string): Observable<any> {
     // this.addAuthenHeader();
     return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
-      .pipe(map(this.extractData), catchError((err) => this.handleError(err)));
+      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   post(uri: string, data?: any): Observable<any> {
     this.addAuthenHeader();

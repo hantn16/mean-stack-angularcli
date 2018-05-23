@@ -13,28 +13,31 @@ import { DataService } from '../../../core/services/data.service';
 })
 export class SellerListComponent implements OnInit {
 
-  sellers: Observable<any>;
+  sellers = [];
   isLoading = false;
   selectedSeller: SellerModel;
 
-  constructor(private _sellerService: SellerService) { }
+  constructor(private _dataService: DataService) { }
 
   ngOnInit() { this.getSellers(); }
 
-  // getSellers() {
-  //   this.isLoading = true;
-  //   this._sellerService.getSellers().subscribe(
-  //     (res) => {
-  //       console.log(res);
-  //       this.sellers = res.sellers;
-  //     }, err => console.log(err)
-  //     , () => this.isLoading = false);
-  //   this.selectedSeller = undefined;
-  // }
   getSellers() {
     this.isLoading = true;
-    this.sellers = this._sellerService.getSellers().pipe(map(res => res.sellers), finalize(() => this.isLoading = false));
+    this._dataService.get('sellers/getall').subscribe(
+      (res) => {
+        console.log(res);
+        this.sellers = res.sellers;
+      }, err => console.log(err)
+      , () => this.isLoading = false);
     this.selectedSeller = undefined;
   }
-select(seller: SellerModel) { this.selectedSeller = seller; }
+  // getSellers() {
+  //   this.isLoading = true;
+  //   this.sellers = this._dataService.get('sellers/getall').pipe(map((res) => res.sellers), finalize(() => {
+  //     this.isLoading = false;
+  //     console.log(this.sellers);
+  //   }));
+  //   this.selectedSeller = undefined;
+  // }
+  select(seller) { this.selectedSeller = seller; }
 }
