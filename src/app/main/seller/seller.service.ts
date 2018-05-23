@@ -22,11 +22,6 @@ export class SellerService {
     return seller;
   }
   updateSeller(seller) {
-    const id = seller._id;
-    let newSeller;
-    this._dataService.put('sellers/' + id).subscribe((result) => {
-      newSeller = result;
-    });
-    return newSeller; // simulate latency with delay
+    return this._dataService.patch('sellers/' + seller._id, seller);
   }
 }

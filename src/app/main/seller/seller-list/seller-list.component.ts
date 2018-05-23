@@ -15,7 +15,7 @@ export class SellerListComponent implements OnInit {
 
   sellers = [];
   isLoading = false;
-  selectedSeller: SellerModel;
+  selectedSeller;
 
   constructor(private _dataService: DataService) { }
 

@@ -3,6 +3,8 @@ import { SellerModel } from '../../../core/domain/seller.model';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { SellerService } from '../seller.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { DataService } from '../../../core/services/data.service';
+import { SystemConstants } from '../../../core/common/system.constants';
 
 @Component({
   selector: 'app-seller-detail',
@@ -18,7 +20,7 @@ export class SellerDetailComponent implements OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private _sellerService: SellerService,
+    private _dataService: DataService,
     private _notificationService: NotificationService) {
 
     this.createForm();
@@ -52,8 +54,8 @@ export class SellerDetailComponent implements OnChanges {
 
   onSubmit() {
     this.seller = this.prepareSaveSeller();
-    const updatedSeller = this._sellerService.updateSeller(this.seller);
-    this._notificationService.printSuccessMessage(updatedSeller.commonName + 'has been updated successfully!!!');
+    const updatedSeller = this._dataService.patch('sellers/' + this.seller._id, this.seller)
+    .subscribe(res => res.seller, (err) => this._dataService.handleError(err));
     this.rebuildForm();
   }
 

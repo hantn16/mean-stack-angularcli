@@ -30,7 +30,7 @@ export class DataService {
     return body || {};
   }
   get(uri: string): Observable<any> {
-    // this.addAuthenHeader();
+    this.addAuthenHeader();
     return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
       .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
@@ -44,10 +44,10 @@ export class DataService {
     return this._http.delete(SystemConstants.BASE_API + uri + '/?' + key + '=' + id, { headers: this.headers })
       .pipe(map(res => res.json()), catchError(err => this.handleError(err)));
   }
-  put(uri: string, data?: any): Observable<any> {
+  patch(uri: string, data?: any): Observable<any> {
     this.addAuthenHeader();
-    return this._http.put(SystemConstants.BASE_API + uri, data, { headers: this.headers })
-      .pipe(map(res => res.json()), catchError(err => this.handleError(err)));
+    return this._http.patch(SystemConstants.BASE_API + uri, data, { headers: this.headers })
+      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   public handleError(error: any) {
     if (error.status === 401) {
