@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { SellerModel } from '../../../core/domain/seller.model';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SellerService } from '../seller.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { DataService } from '../../../core/services/data.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { DataService } from '../../../core/services/data.service';
 })
 export class SellerListComponent implements OnInit {
 
-  sellers;
+  sellers: Observable<any>;
   isLoading = false;
   selectedSeller: SellerModel;
 
@@ -21,12 +21,20 @@ export class SellerListComponent implements OnInit {
 
   ngOnInit() { this.getSellers(); }
 
+  // getSellers() {
+  //   this.isLoading = true;
+  //   this._sellerService.getSellers().subscribe(
+  //     (res) => {
+  //       console.log(res);
+  //       this.sellers = res.sellers;
+  //     }, err => console.log(err)
+  //     , () => this.isLoading = false);
+  //   this.selectedSeller = undefined;
+  // }
   getSellers() {
     this.isLoading = true;
-    this.sellers = this._sellerService.getSellers();
+    this.sellers = this._sellerService.getSellers().pipe(map(res => res.sellers), finalize(() => this.isLoading = false));
     this.selectedSeller = undefined;
-    this.isLoading = false;
   }
-
-  select(seller: SellerModel) { this.selectedSeller = seller; }
+select(seller: SellerModel) { this.selectedSeller = seller; }
 }

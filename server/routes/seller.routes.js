@@ -23,7 +23,7 @@ router.post('/',authenticate, (req, res) => {
 });
 
 //GET /sellers
-router.get('/getall',authenticate, (req, res) => {
+router.get('/getall', (req, res) => {
     Seller.find().then((sellers) => {
         res.send({ sellers });
     }, (err) => {
