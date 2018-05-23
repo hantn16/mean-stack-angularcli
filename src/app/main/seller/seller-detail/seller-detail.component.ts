@@ -10,7 +10,7 @@ import { NotificationService } from '../../../core/services/notification.service
   styleUrls: ['./seller-detail.component.css']
 })
 export class SellerDetailComponent implements OnChanges {
-  @Input() seller: SellerModel;
+  @Input() seller;
 
   sellerForm: FormGroup;
   nameChangeLog: string[] = [];
@@ -27,7 +27,7 @@ export class SellerDetailComponent implements OnChanges {
 
   createForm() {
     this.sellerForm = this.fb.group({
-      id: ['', Validators.required],
+      _id: '',
       commonName: '',
       companyName: '',
       taxCode: '',
@@ -41,17 +41,13 @@ export class SellerDetailComponent implements OnChanges {
 
   rebuildForm() {
     this.sellerForm.reset({
-      id: this.seller.id,
+      _id: this.seller._id,
       commonName: this.seller.commonName,
       companyName: this.seller.companyName,
       taxCode: this.seller.taxCode,
       address: this.seller.address
     });
     // this.setAddresses(this.seller.addresses);
-  }
-
-  get secretLairs(): FormArray {
-    return this.sellerForm.get('secretLairs') as FormArray;
   }
 
   onSubmit() {
@@ -61,10 +57,10 @@ export class SellerDetailComponent implements OnChanges {
     this.rebuildForm();
   }
 
-  prepareSaveSeller(): SellerModel {
+  prepareSaveSeller() {
     const formModel = this.sellerForm.value;
-    const saveSeller: SellerModel = {
-      id: formModel.id as string,
+    const saveSeller = {
+      _id: formModel._id as string,
       commonName: formModel.commonName as string,
       companyName: formModel.companyName as string,
       taxCode: formModel.taxCode as string,

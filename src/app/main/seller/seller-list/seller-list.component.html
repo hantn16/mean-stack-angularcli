@@ -3,13 +3,13 @@
 
 <nav>
   <button (click)="getSellers()" class="btn btn-primary">Refresh</button>
-  <a *ngFor="let seller of sellers | async" (click)="select(seller)">{{seller.name}}</a>
+  <a *ngFor="let seller of sellers" (click)="select(seller)" class="btn-primary">{{seller.commonName}}</a>
 </nav>
 
 <div *ngIf="selectedSeller">
   <hr>
   <h2>Seller Detail</h2>
-  <h3>Editing: {{selectedSeller.name}}</h3>
+  <h3>Editing: {{selectedSeller.commonName}}</h3>
   <app-seller-detail [seller]="selectedSeller"></app-seller-detail>
 </div>
 
