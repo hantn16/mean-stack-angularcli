@@ -15,7 +15,7 @@ export class AuthenService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     const options = new RequestOptions({ headers: headers });
-    return this._http.post(SystemConstants.BASE_API + 'api/users/login',
+    return this._http.post(SystemConstants.BASE_API + 'users/login',
     JSON.stringify({ email: email, password: password }), options)
       .pipe(map((response: Response) => {
         // login successful if there's a jwt token in the response
