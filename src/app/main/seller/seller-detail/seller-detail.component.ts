@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, EventEmitter, Input, Output } from '@angular/core';
 import { SellerModel } from '../../../core/domain/seller.model';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { SellerService } from '../seller.service';
@@ -14,6 +14,7 @@ import { MessageContstants } from '../../../core/common/message.constants';
 })
 export class SellerDetailComponent implements OnChanges {
   @Input() seller;
+  @Output() updateList = new EventEmitter();
 
   sellerForm: FormGroup;
   nameChangeLog: string[] = [];
@@ -33,7 +34,7 @@ export class SellerDetailComponent implements OnChanges {
       _id: '',
       commonName: '',
       companyName: '',
-      taxCode: '',
+      taxCode: ['', [Validators.required, Validators.minLength(10)]],
       address: ''
     });
   }
@@ -73,6 +74,7 @@ export class SellerDetailComponent implements OnChanges {
     const newSeller = this._dataService.post('sellers', this.seller)
       .subscribe((res) => {
         this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+        this.updateList.emit();
         return res.seller;
       }, err => this._dataService.handleError(err));
     this.rebuildForm();
@@ -80,10 +82,12 @@ export class SellerDetailComponent implements OnChanges {
   deleteSeller() {
     this.seller = this.prepareSaveSeller();
     const deletedSeller = this._dataService.deleteById('sellers/' + this.seller._id)
-    .subscribe((res) => {
-      this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
-      return res.seller;
-    }, (err) => this._dataService.handleError(err));
+      .subscribe((res) => {
+        this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
+        this.seller = undefined;
+        return res.seller;
+      }, (err) => this._dataService.handleError(err),
+        () => this.seller = undefined);
   }
 
   prepareSaveSeller() {
