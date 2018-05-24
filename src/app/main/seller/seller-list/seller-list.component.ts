@@ -31,13 +31,13 @@ export class SellerListComponent implements OnInit {
       , () => this.isLoading = false);
     this.selectedSeller = undefined;
   }
-  // getSellers() {
-  //   this.isLoading = true;
-  //   this.sellers = this._dataService.get('sellers/getall').pipe(map((res) => res.sellers), finalize(() => {
-  //     this.isLoading = false;
-  //     console.log(this.sellers);
-  //   }));
-  //   this.selectedSeller = undefined;
-  // }
   select(seller) { this.selectedSeller = seller; }
+  addSeller() {
+    this.selectedSeller = {
+      commonName: '',
+      companyName: '',
+      taxCode: '',
+      address: ''
+    };
+  }
 }

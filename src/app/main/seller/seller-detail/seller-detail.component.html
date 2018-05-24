@@ -1,7 +1,8 @@
 <form [formGroup]="sellerForm" (ngSubmit)="onSubmit()">
   <div style="margin-bottom: 1em">
     <button type="submit" [disabled]="sellerForm.pristine" class="btn btn-success">Save</button> &nbsp;
-    <button type="button" (click)="revert()" [disabled]="sellerForm.pristine" class="btn btn-danger">Revert</button>
+    <button type="button" (click) = "deleteSeller()" class="btn btn-danger">Delete</button> &nbsp;
+    <button type="button" (click)="revert()" [disabled]="sellerForm.pristine" class="btn btn-info">Revert</button>
   </div>
   <!-- Seller Detail Controls -->
   <div class="form-group">

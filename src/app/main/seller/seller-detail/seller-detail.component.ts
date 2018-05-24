@@ -5,6 +5,7 @@ import { SellerService } from '../seller.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { DataService } from '../../../core/services/data.service';
 import { SystemConstants } from '../../../core/common/system.constants';
+import { MessageContstants } from '../../../core/common/message.constants';
 
 @Component({
   selector: 'app-seller-detail',
@@ -54,9 +55,35 @@ export class SellerDetailComponent implements OnChanges {
 
   onSubmit() {
     this.seller = this.prepareSaveSeller();
+    if (this.seller._id === null) {
+      this.addSeller();
+    } else {
+      this.updateSeller();
+    }
+  }
+  updateSeller() {
     const updatedSeller = this._dataService.patch('sellers/' + this.seller._id, this.seller)
-    .subscribe(res => res.seller, (err) => this._dataService.handleError(err));
+      .subscribe((res) => {
+        this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+        return res.seller;
+      }, (err) => this._dataService.handleError(err));
     this.rebuildForm();
+  }
+  addSeller() {
+    const newSeller = this._dataService.post('sellers', this.seller)
+      .subscribe((res) => {
+        this._notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+        return res.seller;
+      }, err => this._dataService.handleError(err));
+    this.rebuildForm();
+  }
+  deleteSeller() {
+    this.seller = this.prepareSaveSeller();
+    const deletedSeller = this._dataService.deleteById('sellers/' + this.seller._id)
+    .subscribe((res) => {
+      this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
+      return res.seller;
+    }, (err) => this._dataService.handleError(err));
   }
 
   prepareSaveSeller() {

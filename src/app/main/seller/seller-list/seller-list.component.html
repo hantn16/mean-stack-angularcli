@@ -4,6 +4,7 @@
 <nav>
   <button (click)="getSellers()" class="btn btn-primary">Refresh</button>
   <a *ngFor="let seller of sellers" (click)="select(seller)" class="btn btn-info">{{seller.commonName}}</a>
+  <a (click) = "addSeller()" class = "btn btn-info"><i class="fa fa-plus"></i></a>
 </nav>
 
 <div *ngIf="selectedSeller">

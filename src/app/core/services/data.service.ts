@@ -37,12 +37,17 @@ export class DataService {
   post(uri: string, data?: any): Observable<any> {
     this.addAuthenHeader();
     return this._http.post(SystemConstants.BASE_API + uri, data, { headers: this.headers })
-      .pipe(map(res => res.json()), catchError(err => this.handleError(err)));
+      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   delete(uri: string, key: string, id: string): Observable<any> {
     this.addAuthenHeader();
     return this._http.delete(SystemConstants.BASE_API + uri + '/?' + key + '=' + id, { headers: this.headers })
-      .pipe(map(res => res.json()), catchError(err => this.handleError(err)));
+      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
+  }
+  deleteById(uri: string): Observable<any> {
+    this.addAuthenHeader();
+    return this._http.delete(SystemConstants.BASE_API + uri, { headers: this.headers })
+      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   patch(uri: string, data?: any): Observable<any> {
     this.addAuthenHeader();

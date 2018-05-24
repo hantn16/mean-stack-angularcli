@@ -8,6 +8,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.component';
 import { SellerService } from './main/seller/seller.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { SellerService } from './main/seller/seller.service';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
