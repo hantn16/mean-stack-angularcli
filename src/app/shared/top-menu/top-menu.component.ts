@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenService } from '../../core/services/authen.service';
 import { UserModel } from '../../core/domain/user.model';
 import { SystemConstants } from '../../core/common/system.constants';
+import { UtilityService } from '../../core/services/utility.service';
+import { DataService } from '../../core/services/data.service';
+import { UrlConstants } from '../../core/common/url.constants';
 
 @Component({
   selector: 'app-top-menu',
@@ -12,11 +15,17 @@ export class TopMenuComponent implements OnInit {
 
   public user: UserModel;
   public baseFolder: string = SystemConstants.BASE_API;
-  constructor(private _authenService: AuthenService) {
-    this.user = this._authenService.getLoggedInUser();
+  constructor(private _authenService: AuthenService,
+    private utilityService: UtilityService,
+    private _dataService: DataService) {
   }
 
   ngOnInit() {
+    this.user = this._authenService.getLoggedInUser();
+  }
+  logout() {
+    localStorage.removeItem(SystemConstants.CURRENT_USER);
+    this.utilityService.navigate(UrlConstants.LOGIN);
   }
 
 }

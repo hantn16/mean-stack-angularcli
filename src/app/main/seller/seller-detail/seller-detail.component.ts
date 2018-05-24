@@ -66,6 +66,7 @@ export class SellerDetailComponent implements OnChanges {
     const updatedSeller = this._dataService.patch('sellers/' + this.seller._id, this.seller)
       .subscribe((res) => {
         this._notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+        this.updateList.emit();
         return res.seller;
       }, (err) => this._dataService.handleError(err));
     this.rebuildForm();
@@ -85,6 +86,7 @@ export class SellerDetailComponent implements OnChanges {
       .subscribe((res) => {
         this._notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
         this.seller = undefined;
+        this.updateList.emit();
         return res.seller;
       }, (err) => this._dataService.handleError(err),
         () => this.seller = undefined);
