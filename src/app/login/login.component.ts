@@ -41,7 +41,7 @@ export class LoginComponent implements OnChanges {
       .subscribe(data => {
         this.router.navigate([UrlConstants.HOME]);
       }, error => {
-        this._notificationService.printErrorMessage(/*MessageContstants.SYSTEM_ERROR_MSG*/'Loi cmnr');
+        this._notificationService.printErrorMessage(MessageContstants.SYSTEM_ERROR_MSG);
         this.loading = false;
       });
   }

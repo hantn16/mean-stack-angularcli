@@ -19,7 +19,6 @@ export class AuthenService {
     JSON.stringify({ email: email, password: password }), options)
       .pipe(map((response) => {
         // login successful if there's a jwt token in the response
-        console.log(JSON.stringify(response));
         const token = response.json().token;
         const user = response.json().user;
         if (token) {
