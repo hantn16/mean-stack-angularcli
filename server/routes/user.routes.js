@@ -7,12 +7,12 @@ const { authenticate } = require('../middleware/authenticate');
 
 //POST /users
 router.post('/', (req, res) => {
-    const body = _.pick(req.body, ['email', 'password']);
+    const body = _.pick(req.body, ['email', 'password','name','fullName','imgLink']);
     const newUser = new User(body);
     newUser.save().then(() => {
         return newUser.generateAuthToken();
     }).then((token) => {
-        res.header('x-auth', token).send(newUser);
+        res.header('x-auth', token).send({idToken:token,expiresIn: 300});
     }).catch((err) => {
         res.status(400).send(err);
     })
@@ -22,10 +22,9 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     const body = _.pick(req.body, ['email', 'password']);
     User.findByCredentials(body.email, body.password).then((user) => {
-        // user.generateAuthToken().then((token) => {
-        const token = user.tokens[0].token;
-        res.header('x-auth', token).send({user,token});
-        // });
+        user.generateAuthToken().then((token) => {
+            res.header('x-auth', token).send({ idToken: token, expiresIn: 300 });
+        });
     }).catch((e) => {
         res.status(400).send(e);
     });

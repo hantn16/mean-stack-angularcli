@@ -39,9 +39,10 @@ export class LoginComponent implements OnChanges {
     this.userModel = new UserModel();
     this._authenService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(data => {
+        this._notificationService.printSuccessMessage('Đăng nhập thành công');
         this.router.navigate([UrlConstants.HOME]);
       }, error => {
-        this._notificationService.printErrorMessage(MessageContstants.SYSTEM_ERROR_MSG);
+        this._notificationService.printErrorMessage(error.json().message);
         this.loading = false;
       });
   }

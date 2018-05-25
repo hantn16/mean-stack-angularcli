@@ -20,37 +20,36 @@ export class DataService {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
   }
-  addAuthenHeader() {
-    this.headers.delete('x-auth');
-    const userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
-    this.headers.append('x-auth', userData.token);
-  }
+  // addAuthenHeader() {
+  //   this.headers.delete('x-auth');
+  //   const authToken = JSON.parse(localStorage.getItem(SystemConstants.ID_TOKEN));
+  //   this.headers.append('x-auth', authToken);
+  // }
   private extractData(res: Response) {
     const body = res.json();
     return body || {};
   }
   get(uri: string): Observable<any> {
-    this.addAuthenHeader();
     return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
       .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   post(uri: string, data?: any): Observable<any> {
-    this.addAuthenHeader();
+    // this.addAuthenHeader();
     return this._http.post(SystemConstants.BASE_API + uri, data, { headers: this.headers })
       .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   delete(uri: string, key: string, id: string): Observable<any> {
-    this.addAuthenHeader();
+    // this.addAuthenHeader();
     return this._http.delete(SystemConstants.BASE_API + uri + '/?' + key + '=' + id, { headers: this.headers })
       .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   deleteById(uri: string): Observable<any> {
-    this.addAuthenHeader();
+    // this.addAuthenHeader();
     return this._http.delete(SystemConstants.BASE_API + uri, { headers: this.headers })
       .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }
   patch(uri: string, data?: any): Observable<any> {
-    this.addAuthenHeader();
+    // this.addAuthenHeader();
     return this._http.patch(SystemConstants.BASE_API + uri, data, { headers: this.headers })
       .pipe(map(this.extractData), catchError(err => this.handleError(err)));
   }

@@ -10,6 +10,8 @@ import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.compone
 import { SellerService } from './main/seller/seller.service';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from './core/guards/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/authen.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,12 @@ import { AuthGuard } from './core/guards/auth.guard';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthGuard, SellerService],
+  providers: [AuthGuard,
+    SellerService,    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -56,8 +56,7 @@ UserSchema.methods.generateAuthToken = function () {
     var user = this;
     const access = 'auth';
     let token = jwt.sign({ _id: user._id.toHexString(), access }, /*process.env.JWT_SECRET*/'HanTrinh',{
-        algorithm: 'RS256',
-        expiresIn: 30
+        expiresIn: 600
     }).toString();
     user.tokens.push({ access, token });
 
