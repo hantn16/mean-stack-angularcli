@@ -24,8 +24,7 @@ export class TopMenuComponent implements OnInit {
     this.user = this._authenService.getLoggedInUser();
   }
   logout() {
-    localStorage.removeItem(SystemConstants.CURRENT_USER);
-    this.utilityService.navigate(UrlConstants.LOGIN);
+    this._authenService.logout();
   }
 
 }

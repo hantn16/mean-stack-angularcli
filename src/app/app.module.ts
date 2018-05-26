@@ -10,8 +10,8 @@ import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.compone
 import { SellerService } from './main/seller/seller.service';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from './core/guards/auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './core/interceptors/authen.interceptor';
+import { httpInterceptorProviders } from './core/interceptors';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,14 +24,14 @@ import { AuthInterceptor } from './core/interceptors/authen.interceptor';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthGuard,
-    SellerService,    {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    AuthGuard,
+    SellerService,
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

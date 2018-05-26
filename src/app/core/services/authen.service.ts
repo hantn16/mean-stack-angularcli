@@ -5,6 +5,7 @@ import { SystemConstants } from '../common/system.constants';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { UserModel } from '../domain/user.model';
 import * as moment from 'moment';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,17 @@ import * as moment from 'moment';
 export class AuthenService {
 
   public token: string;
-  constructor(private _http: Http) { }
-  login(email: string, password: string): Observable<Response> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    const options = new RequestOptions({ headers: headers });
+  public returnUrl: string;
+  constructor(private _http: HttpClient) { }
+  login(email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
     return this._http.post(SystemConstants.BASE_API + 'users/login',
-      JSON.stringify({ email: email, password: password }), options)
+      JSON.stringify({ email: email, password: password }), {headers: headers})
       .pipe(tap(res => this.setSession(res)));
   }
-  private setSession(result) {
-    const authResult = result.json();
+  private setSession(authResult) {
     const expiresAt = moment().add(authResult.expiresIn, 'second');
     localStorage.setItem(SystemConstants.ID_TOKEN, authResult.idToken);
     localStorage.setItem(SystemConstants.EXPIRES_AT, JSON.stringify(expiresAt.valueOf()));
@@ -47,9 +48,13 @@ export class AuthenService {
   }
   getLoggedInUser(): UserModel {
     let user: UserModel = new UserModel();
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'x-auth': localStorage.getItem(SystemConstants.ID_TOKEN)
+    });
     if (this.isLoggedIn()) {
-      this._http.get(SystemConstants.BASE_API + 'users/me')
-        .pipe(map(res => res.json())).subscribe((result) => {
+      this._http.get(SystemConstants.BASE_API + 'users/me', { headers: headers })
+        .pipe().subscribe((result: UserModel) => {
           user.email = result.email;
           user.name = result.name;
           user.fullName = result.fullName;

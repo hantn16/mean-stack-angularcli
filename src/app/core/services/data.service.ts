@@ -8,50 +8,47 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AuthenService } from './authen.service';
 import { MessageContstants } from '../common/message.constants';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private headers: Headers;
+  private headers: HttpHeaders;
 
-  constructor(private _http: Http, private _router: Router, private _notificationService: NotificationService,
+  constructor(private _http: HttpClient, private _router: Router, private _notificationService: NotificationService,
     private _utilityService: UtilityService, private _authenService: AuthenService) {
-    this.headers = new Headers();
+    this.headers = new HttpHeaders();
     this.headers.append('Content-Type', 'application/json');
   }
-  // addAuthenHeader() {
-  //   this.headers.delete('x-auth');
-  //   const authToken = JSON.parse(localStorage.getItem(SystemConstants.ID_TOKEN));
-  //   this.headers.append('x-auth', authToken);
-  // }
+  addAuthenHeader() {
+    this.headers.delete('x-auth');
+    const authToken = localStorage.getItem(SystemConstants.ID_TOKEN);
+    this.headers.append('x-auth', authToken);
+  }
   private extractData(res: Response) {
     const body = res.json();
     return body || {};
   }
   get(uri: string): Observable<any> {
     return this._http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
-      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
+      .pipe(catchError(err => this.handleError(err)));
   }
   post(uri: string, data?: any): Observable<any> {
-    // this.addAuthenHeader();
     return this._http.post(SystemConstants.BASE_API + uri, data, { headers: this.headers })
-      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
+      .pipe(catchError(err => this.handleError(err)));
   }
   delete(uri: string, key: string, id: string): Observable<any> {
-    // this.addAuthenHeader();
     return this._http.delete(SystemConstants.BASE_API + uri + '/?' + key + '=' + id, { headers: this.headers })
-      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
+      .pipe(catchError(err => this.handleError(err)));
   }
   deleteById(uri: string): Observable<any> {
-    // this.addAuthenHeader();
     return this._http.delete(SystemConstants.BASE_API + uri, { headers: this.headers })
-      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
+      .pipe(catchError(err => this.handleError(err)));
   }
   patch(uri: string, data?: any): Observable<any> {
-    // this.addAuthenHeader();
     return this._http.patch(SystemConstants.BASE_API + uri, data, { headers: this.headers })
-      .pipe(map(this.extractData), catchError(err => this.handleError(err)));
+      .pipe(catchError(err => this.handleError(err)));
   }
   public handleError(error: any) {
     if (error.status === 401) {
