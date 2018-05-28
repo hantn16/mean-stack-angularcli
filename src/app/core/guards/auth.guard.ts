@@ -15,7 +15,17 @@ export class AuthGuard implements CanActivate {
     }
     checkLogin(url: string): boolean {
         if (localStorage.getItem(SystemConstants.EXPIRES_AT)) {
-            return this.authenService.isLoggedIn();
+            const kq = this.authenService.isLoggedIn();
+            if (!kq) {
+                this.authenService.returnUrl = url;
+                this.router.navigate([UrlConstants.LOGIN], {
+                    queryParams: {
+                        returnUrl: url
+                    }
+                });
+                return kq;
+            }
+            return true;
         } else {
             this.authenService.returnUrl = url;
             this.router.navigate([UrlConstants.LOGIN], {
@@ -25,5 +35,5 @@ export class AuthGuard implements CanActivate {
             });
             return false;
         }
-      }
+    }
 }
