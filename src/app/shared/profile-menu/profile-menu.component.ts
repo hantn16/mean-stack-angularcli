@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from '../../core/domain/user.model';
+import { User } from '../../core/domain/user';
 import { SystemConstants } from '../../core/common/system.constants';
 import { AuthenService } from '../../core/services/authen.service';
 
@@ -11,7 +11,7 @@ import { AuthenService } from '../../core/services/authen.service';
 export class ProfileMenuComponent implements OnInit {
 
 
-  public user: UserModel;
+  public user: User;
   public baseFolder: string = SystemConstants.BASE_API;
   constructor(private _authenService: AuthenService) {
     this.user = this._authenService.getLoggedInUser();

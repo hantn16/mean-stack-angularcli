@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenService } from '../../core/services/authen.service';
-import { UserModel } from '../../core/domain/user.model';
+import { User } from '../../core/domain/user';
 import { SystemConstants } from '../../core/common/system.constants';
 import { UtilityService } from '../../core/services/utility.service';
 import { DataService } from '../../core/services/data.service';
@@ -13,7 +13,7 @@ import { UrlConstants } from '../../core/common/url.constants';
 })
 export class TopMenuComponent implements OnInit {
 
-  public user: UserModel;
+  public user: User;
   public baseFolder: string = SystemConstants.BASE_API;
   constructor(private _authenService: AuthenService,
     private utilityService: UtilityService,

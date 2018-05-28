@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable, pipe } from 'rxjs';
 import { SystemConstants } from '../common/system.constants';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { UserModel } from '../domain/user.model';
+import { User } from '../domain/user';
 import * as moment from 'moment';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 
@@ -46,15 +46,15 @@ export class AuthenService {
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
   }
-  getLoggedInUser(): UserModel {
-    let user: UserModel = new UserModel();
+  getLoggedInUser(): User {
+    let user: User = <User>{};
     const headers = new HttpHeaders({
       'Content-Type':  'application/json',
       'x-auth': localStorage.getItem(SystemConstants.ID_TOKEN)
     });
     if (this.isLoggedIn()) {
       this._http.get(SystemConstants.BASE_API + 'users/me', { headers: headers })
-        .pipe().subscribe((result: UserModel) => {
+        .pipe().subscribe((result: User) => {
           user.email = result.email;
           user.name = result.name;
           user.fullName = result.fullName;

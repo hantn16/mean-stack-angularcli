@@ -1,8 +1,6 @@
-export class UserModel {
+export interface User {
     email: string;
     name: string;
     fullName: string;
     imgLink: string;
-    tokens: any[];
-    constructor() { }
 }

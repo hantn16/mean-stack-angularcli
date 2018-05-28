@@ -4,7 +4,7 @@ import { NotificationService } from '../core/services/notification.service';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { UrlConstants } from '../core/common/url.constants';
 import { MessageContstants } from '../core/common/message.constants';
-import { UserModel } from '../core/domain/user.model';
+import { User } from '../core/domain/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class LoginComponent implements OnChanges {
 
-  @Input() userModel: UserModel;
+  @Input() userModel: User;
   loginForm: FormGroup;
 
   loading = false;
@@ -37,7 +37,7 @@ export class LoginComponent implements OnChanges {
   }
   login() {
     this.loading = true;
-    this.userModel = new UserModel();
+    this.userModel = <User>{};
     this._authenService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(data => {
         this._notificationService.printSuccessMessage('Đăng nhập thành công');
