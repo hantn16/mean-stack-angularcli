@@ -23,7 +23,7 @@ router.post('/login', (req, res) => {
     const body = _.pick(req.body, ['email', 'password']);
     User.findByCredentials(body.email, body.password).then((user) => {
         user.generateAuthToken().then((token) => {
-            res.header('x-auth', token).send({ idToken: token, expiresIn: 300 });
+            res.header('x-auth', token).send({ idToken: token, expiresIn: 6000 });
         });
     }).catch((e) => {
         res.status(400).send(e);

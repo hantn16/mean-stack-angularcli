@@ -5,6 +5,7 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
@@ -15,7 +16,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
   imports: [
     CommonModule,
     FormsModule,
-    TableModule, DialogModule, ButtonModule, InputTextModule,
+    TableModule, DialogModule, ButtonModule, InputTextModule, FileUploadModule,
     UserRoutingModule
   ],
   declarations: [UserComponent, UserListComponent, UserDetailComponent]
