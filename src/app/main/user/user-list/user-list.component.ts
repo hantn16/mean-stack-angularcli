@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
+import {ButtonModule} from 'primeng/button';
 import { UserService } from '../user.service';
 import { User } from '../../../core/domain/user';
 

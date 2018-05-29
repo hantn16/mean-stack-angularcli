@@ -1,4 +1,4 @@
-<p-table [columns]="cols" [value]="users" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+<p-table [columns]="cols" [value]="users" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="1">
   <ng-template pTemplate="header" let-columns>
       <tr>
           <th *ngFor="let col of columns">
@@ -15,10 +15,10 @@
   </ng-template>
 
   <ng-template pTemplate="summary" let-rowData>
-      <div style="text-align:left">
-          <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"></button>
-      </div>
-  </ng-template>
+    <div style="text-align:left">
+        <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+    </div>
+</ng-template>
   
 </p-table>
 <p-dialog header="User Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
@@ -58,8 +58,8 @@
   </div>
   <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-          <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+          <button type="button" pButton class="ui-button-danger" icon="fa-close" (click)="delete()" label="Delete"></button>
+          <button type="button" pButton class="ui-button-success" icon="fa-check" (click)="save()" label="Save"></button>
       </div>
   </p-footer>
 </p-dialog>

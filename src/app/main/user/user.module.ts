@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,7 +15,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
   imports: [
     CommonModule,
     FormsModule,
-    TableModule, DialogModule,
+    TableModule, DialogModule, ButtonModule, InputTextModule,
     UserRoutingModule
   ],
   declarations: [UserComponent, UserListComponent, UserDetailComponent]

@@ -30,9 +30,9 @@
               "./node_modules/alertifyjs/build/css/alertify.min.css",
               "./node_modules/alertifyjs/build/css/themes/default.min.css",
               "./src/assets/css/custom.css",
+              "./src/assets/css/style.css",
               "./node_modules/primeng/resources/themes/omega/theme.css",
-              "./node_modules/primeng/resources/primeng.min.css",
-              "./src/assets/css/style.css"
+              "./node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
