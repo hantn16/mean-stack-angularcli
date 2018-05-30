@@ -1,0 +1,8 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">Danh sách hình ảnh</div>
+	<div *ngFor="let file of fileUploads | async">
+		<div class="panel-body">
+			<details-upload [fileUpload]='file'></details-upload>
+		</div>
+	</div>
+</div>

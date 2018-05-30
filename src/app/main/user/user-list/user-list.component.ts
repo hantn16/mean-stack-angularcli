@@ -33,28 +33,12 @@ export class UserListComponent implements OnInit {
     this.displayDialog = true;
   }
 
-  save() {
-    // let users = [...this.users];
-    // if (this.newUser)
-    //     users.push(this.user);
-    // else
-    //     users[this.users.indexOf(this.selectedUser)] = this.user;
 
-    // this.users = users;
-    // this.user = null;
-    // this.displayDialog = false;
-  }
-
-  delete() {
-    const index = this.users.indexOf(this.selectedUser);
-    this.users = this.users.filter((val, i) => i !== index);
-    this.user = null;
-    this.displayDialog = false;
-  }
 
   onRowSelect(event) {
     this.newUser = false;
     this.user = this.cloneUser(event.data);
+    this.selectedUser = this.user;
     this.displayDialog = true;
   }
 

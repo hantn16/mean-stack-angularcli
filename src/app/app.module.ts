@@ -13,11 +13,13 @@ import { CommonModule } from '@angular/common';
 import { AuthGuard } from './core/guards/auth.guard';
 import { httpInterceptorProviders } from './core/interceptors';
 import { HttpClientModule } from '@angular/common/http';
+import { ChooseImageComponent } from './shared/choose-image/choose-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ChooseImageComponent
   ],
   imports: [
     BrowserModule,
