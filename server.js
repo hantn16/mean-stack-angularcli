@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('./server/db/mongoose');
+var cors = require('cors');
 var multer = require('multer');
 var fs = require('fs');
 var Loki = require('lokijs');
@@ -25,6 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/mean-stack-angularcli')));
 
 app.use(function (req, res, next) {

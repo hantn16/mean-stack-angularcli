@@ -6,7 +6,7 @@ const path = require('path');
 const Loki = require('lokijs');
 const fs = require('fs');
 const { authenticate } = require('../middleware/authenticate');
-const { upload, db } = require('../configs/multer.config');
+const { upload, db ,UPLOAD_PATH} = require('../configs/multer.config');
 
 const loadCollection = function (colName, db) {
     return new Promise(resolve => {
@@ -41,6 +41,7 @@ router.get('/images', (req, res) => {
     }).catch((err) => res.sendStatus(400).send(err));
 })
 
+//get image by id
 router.get('/images/:id', (req, res) => {
     loadCollection('images', db).then((col) =>{
         const result = col.get(req.params.id);
@@ -49,6 +50,8 @@ router.get('/images/:id', (req, res) => {
         };
         res.setHeader('Content-Type', result.mimetype);
         fs.createReadStream(path.join(UPLOAD_PATH, result.filename)).pipe(res);
-    }).catch(e => res.sendStatus(400).send(e));  
+    }).catch((e) => {
+        res.sendStatus(400).send(e);
+    });  
 })
 module.exports = router;
