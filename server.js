@@ -6,12 +6,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('./server/db/mongoose');
+var multer = require('multer');
+var fs = require('fs');
+var Loki = require('lokijs');
 
 var apiRoutes = require('./server/routes/api.routes');
 
-
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'dist/mean-stack-angularcli'));
