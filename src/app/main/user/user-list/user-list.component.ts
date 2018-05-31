@@ -30,6 +30,7 @@ export class UserListComponent implements OnInit {
   showDialogToAdd() {
     this.newUser = true;
     this.user = <User>{};
+    this.selectedUser = this.user;
     this.displayDialog = true;
   }
 
