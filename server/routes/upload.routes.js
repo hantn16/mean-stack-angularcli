@@ -21,7 +21,7 @@ router.post('/image', upload.single('avatar'), (req, res) => {
     loadCollection('images', db).then((collection) => {
         const data = collection.insert(req.file);
         db.saveDatabase();
-        res.send({ id: data.$loki, fileName: data.filename, originalName: data.originalname });
+        res.send({ id: data.$loki, filename: data.filename, originalname: data.originalname });
     }).catch((e) => { res.sendStatus(400).send(e); });
 })
 
@@ -30,7 +30,7 @@ router.post('/images', upload.array('photos', 12), (req, res) => {
     loadCollection('images', db).then((col) => {
         let data = [].concat(col.insert(req.files));
         db.saveDatabase();
-        res.send(data.map(x => ({ id: x.$loki, fileName: x.filename, originalName: x.originalname })));
+        res.send(data.map(x => ({ id: x.$loki, filename: x.filename, originalname: x.originalname })));
     }).catch((e) => res.sendStatus(400).send(e));
 })
 
